@@ -1,0 +1,50 @@
+{% extends "admin_index.html" %}
+{% block body %}
+
+
+<body>
+<form id="form1" name="form1" method="post" action="/myapp/view_allowancepost/#about">
+    {% csrf_token %}
+  <table class="table table-borderless table-hover table-striped">
+    <tr>
+      <td width="148">Department</td>
+      <td width="279"><select name="select" id="select"  class="form-control" required style="background-color: ghostwhite">
+          <option value="0">Select</option>
+              {% for i in d %}
+                  <option value="{{ i.id }}" {% if i.id == de %} selected {% endif %} >{{ i.department_name }}</option>
+              {% endfor %}
+          </select></td>
+        <td>
+            <input type="submit" name="button" id="button" class="btn btn-outline-warning" value="Submit" />
+        </td>
+    </tr>
+  </table>
+
+  <table width="747" border="1" class="table table-borderless table-hover table-striped">
+    <tr style="background-color: grey">
+      <th width="35">Sl no</th>
+      <th width="68">Staff name</th>
+      <th width="150">Designation</th>
+      <th width="144">Allowance type</th>
+      <th>Date</th>
+      <th width="100">Amount</th>
+      <td width="210">&nbsp;</td>
+        <td></td>
+    </tr>
+      {% for i in data %}
+    <tr>
+      <td>&nbsp;{{ forloop.counter }} </td>
+      <td>{{ i.STAFF.name }}</td>
+      <td>{{ i.STAFF.DESIGNATION.designation_name }}</td>
+      <td>{{ i.allowance_type }}&nbsp;</td>
+      <td>{{ i.date }}</td>
+      <td>&nbsp;{{ i.amount }}</td>
+      <td align="center"><a href="/myapp/update_allowance/{{ i.id }}#about">Edit</a>
+        <td align="center"><a href="/myapp/delete_allowance/{{ i.id }}">Delete</a></td>
+      </td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+{% endblock %}

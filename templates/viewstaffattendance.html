@@ -1,0 +1,96 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+
+</head>
+
+<body>
+<h2 align="center">View Attendance</h2><br>
+<form id="form1" name="form1" method="post" action="/myapp/search_by_month/#about">
+<input type="hidden" value="{{ data.id }}" name="sid">
+    <center>
+    <img src="{{ data.photo }}" width="150px" height="150px" class="rounded-circle"></center><br>
+  <table  border="1"  class="table table-borderless table-striped">
+      <tr>
+          <th>Name</th>
+      <td>{{ data.name }}&nbsp;</td>
+    </tr>
+    <tr>
+        <th>Department </th>
+      <td>{{ data.DESIGNATION.DEPARTMENT.department_name }}</td>
+    </tr>
+    <tr>
+        <th>Designation </th>
+      <td>{{ data.DESIGNATION.designation_name }}</td>
+    </tr>
+  </table>
+  <table border="1" class="table table-borderless table-striped">
+  <tr>
+  <td></td>
+      <th>Month</th>
+      <td>
+          <select name="select2" id="select2" class="form-control" required>
+{#      <option value="">Select</option>#}
+              <option value="1" {% if cm == 1 %} selected {% endif %}>January</option>
+              <option value="2" {% if cm == 2 %} selected {% endif %}>February</option>
+              <option value="3" {% if cm == 3 %} selected {% endif %}>March</option>
+              <option value="4" {% if cm == 4 %} selected {% endif %}>April</option>
+              <option value="5" {% if cm == 5 %} selected {% endif %}>May</option>
+              <option value="6" {% if cm == 6 %} selected {% endif %}>June</option>
+              <option value="7" {% if cm == 7 %} selected {% endif %}>July</option>
+              <option value="8" {% if cm == 8 %} selected {% endif %}>August</option>
+              <option value="9" {% if cm == 9 %} selected {% endif %}>September</option>
+              <option value="10"{% if cm == 10 %} selected {% endif %}>October</option>
+              <option value="11"{% if cm == 11 %} selected {% endif %}>November</option>
+              <option value="12"{% if cm == 12 %} selected {% endif %}>December</option>
+      </select>
+          <th>Year</th>
+      <td>
+          <select name="select3" id="select3" class="form-control" required>
+{#          <option value="">Select</option>#}
+            {% for i in data3 %}
+                  <option value="{{ i }}" {% if cy == i %} selected {% endif %}>{{ i }}</option>
+              {% endfor %}
+          </select>
+      </td>
+  <td><input type="submit" value="Search" class="btn btn-primary"></td>
+    </tr>
+    <tr>
+        <td>SL No</td>
+      <td>Date</td>
+      <td>Entry Time</td>
+        <td>Entry Status</td>
+      <td>Exit Time</td>
+        <td>Exit Status</td>
+
+
+    </tr>
+    {% for i in data2 %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>&nbsp;{{ i.date }}</td>
+      <td>&nbsp;{{ i.entry_time }} </td>
+        <td>{{ i.entry_status }}&nbsp;</td>
+      <td>{{ i.exit_time }} </td>
+      <td>{{ i.exit_status }}&nbsp;</td>
+    </tr>
+      {% endfor %}
+  </table>
+  
+</form>
+</body>
+</html>
+{% endblock %}

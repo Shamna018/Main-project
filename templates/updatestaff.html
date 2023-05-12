@@ -1,0 +1,172 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+    <style>
+        h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+
+<body>
+<h2 align="center">Update Staff</h2><br>
+<form action="/myapp/updatestaff_post/" method="post" enctype="multipart/form-data" name="form1" id="form1">{% csrf_token %}
+  <table width="750" border="1" class="table table-borderless table-hover table-striped">
+  <tr align="center">
+      <td colspan="2"><img src="{{ data.photo }}" width="120px" height="120px"class="rounded-circle" ></td>
+  </tr>
+    <tr>
+      <td width="164">Name</td>
+      <td width="574"><input type="text" name="textfield" id="textfield" value="{{ data.name }}" class="form-control" pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <td>Gender</td>
+      <td><input type="radio" name="radio" id="radio" value="Male" {% if data.gender == 'Male' %}checked{% endif %} />
+        Male
+        <input type="radio" name="radio" id="radio2" value="Female"  {% if data.gender == 'Female' %}checked{% endif %} />
+        Female</td>
+    </tr>
+    <tr>
+      <td>Date of birth</td>
+      <td><input type="date" name="textfield12" id="textfield12" value="{{ data.dob}}" class="form-control" min="1980-12-31" max="2003-12-31"/></td>
+    </tr>
+    <tr>
+      <td>Mobile No</td>
+      <td><input type="text" name="textfield2" id="textfield2" value="{{ data.mobile }}"class="form-control" pattern="[6789][0-9]{9}"/></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><input type="text" name="textfield3" id="textfield3" value="{{ data.email }}" class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>Address</td>
+      <td><textarea name="textarea" id="textarea" cols="45" rows="5" value="{{ data.address }}" class="form-control ">{{ data.address }}</textarea></td>
+    </tr>
+    <tr>
+      <td>Qualification</td>
+      <td><input type="text" name="textfield4" id="textfield4" value="{{ data.qualification }}"class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>Experiance</td>
+      <td><input type="text" name="textfield5" id="textfield5" value="{{ data.experiance }}" class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>Father's name</td>
+      <td><input type="text" name="textfield6" id="textfield6" value="{{ data.father }}" class="form-control" pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <td>Mother's name</td>
+      <td><input type="text" name="textfield7" id="textfield7" value="{{ data.mother }}" class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>Department</td><td>{{ data.DESIGNATION.DEPARTMENT.department_name }}</td>
+{#      <td><select name="select" id="select" class="form-control" pattern="[A-Z/ /a-z]{3,25}">#}
+{#          {% for i in data3 %}#}
+{#              <option value="{{ data.DESIGNATION_id }}">{{ data.DESIGNATION.DEPARTMENT.department_name }}</option>#}
+{#          {% endfor %}#}
+{##}
+{##}
+{#      </select></td>#}
+    </tr>
+    <tr>
+      <td>Designation</td><td>{{ data.DESIGNATION.designation_name }}</td>
+{#      <td><select name="select2" id="select2" class="form-control">#}
+{#          {% for i in data4 %}#}
+{#            <option value="{{ data.DESIGNATION_id }}">{{ data.DESIGNATION.designation_name }}</option>#}
+{#          {% endfor %}#}
+{##}
+{#      </select></td>#}
+    </tr>
+    <tr>
+      <td>Basic salary</td>
+      <td>{{ data2.basicpay }}</td>
+    </tr>
+{#    <tr>#}
+{#      <td>Join Date</td>#}
+{#      <td><input type="date" name="textfield13" id="textfield13" value="{{ data.joindate }}" class="form-control"/></td>#}
+{#    </tr>#}
+    <tr>
+      <td>Accno</td>
+      <td><input type="text" name="textfield8" id="textfield8" value="{{ data.acctno }}" class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>IFSC</td>
+      <td><input type="text" name="textfield9" id="textfield9" value="{{ data.ifsc }}" class="form-control"/></td>
+    </tr>
+    <tr>
+      <td>Recipient name</td>
+      <td><input type="text" name="textfield10" id="textfield10" value="{{ data.recipient_name }}" class="form-control"/></td>
+    </tr>
+
+    <tr>
+      <td>Photo</td>
+      <td><input type="file" name="fileField" id="fileField" class="form-control" class="form-control"/></td>
+    </tr>
+
+    <tr>
+      <td align="center" colspan="2"><input type="submit" name="button" id="button" class="btn btn-outline-warning" value="Update" /></td>
+  </table>
+</form>
+</body>
+</html>
+
+
+      <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+<script  type="text/javascript" >
+
+
+  $(document).on('change','#select',function () {
+
+      var did = $('#select').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/getdesignationdep/",
+          type: "POST",
+          data: {
+
+              'did': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#select2").empty();
+              var d = dat['data'];
+              for(var i=0;i<=d.length;i++)
+                {
+                    $("#select2").append("<option value='"+d[i]['id']+"' >"+d[i]['designation_name']+"</option>")
+                }
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+
+
+</script>
+
+{% endblock %}

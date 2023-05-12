@@ -1,0 +1,86 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+<body>
+<h2 align="center">View Salary Report</h2><br>
+<form id="form1" name="form1" method="post" action="/myapp/view_salaryreport_search/">
+
+      <table  border="1" class="table table-borderless table-striped" >
+        <tr>
+  <td></td>
+      <th>Month</th>
+      <td>
+  <select name="month" class="form-control-sm">
+    <option value="1" {% if month == '1' %}selected {% endif %}>January</option>
+    <option value="2" {% if month == '2' %}selected {% endif %}>February</option>
+    <option value="3" {% if month == '3' %}selected {% endif %}>March</option>
+    <option value="4" {% if month == '4' %}selected {% endif %}>April</option>
+    <option value="5" {% if month == '5' %}selected {% endif %}>May</option>
+    <option value="6" {% if month == '6' %}selected {% endif %}>June</option>
+    <option value="7" {% if month == '7' %}selected {% endif %}>July</option>
+    <option value="8" {% if month == '8' %}selected {% endif %}>August</option>
+    <option value="9" {% if month == '9' %}selected {% endif %}>September</option>
+    <option value="10" {% if month == '10' %}selected {% endif %} >October</option>
+    <option value="11" {% if month == '11' %}selected {% endif %} >November</option>
+    <option value="12" {% if month == '12' %}selected {% endif %} >December</option>
+</select>
+      </td>
+
+<th>Year</th>
+      <td>
+          <select name="select3" id="select3" class="form-control" required>
+        <option value="2023">2023</option>
+          </select>
+      </td>
+
+        <td><input type="submit" value="Search" class="btn btn-warning"></td>
+ </tr>
+
+      <table width="1002" border="1" class="table table-borderless table-hover table-striped">
+  <tr align="center"><th colspan="8" align="center">Salary Sheet For The Month {{ m }}</th></tr>
+    <tr>
+      <th width="88">SL No</th>
+      <th width="93">Staff Name</th>
+      <th width="158">Department</th>
+      <th width="180">Designation</th>
+      <th width="169">Basic Pay</th>
+        <th>Allowances</th>
+      <th width="144">Deductions</th>
+      <th width="124">Net Salary</th>
+    </tr>
+      {% for i in data %}
+    <tr>
+      <td>&nbsp;{{ forloop.counter }}</td>
+      <td>{{ i.name }}</td>
+      <td>{{ i.department }}</td>
+      <td>{{ i.designation }}&nbsp;</td>
+      <td>{{ i.basicpay }}</td>
+        <td>{{ i.allowance }}</td>
+      <td>{{ i.td }}</td>
+      <td>{{ i.de }}</td>
+    </tr>
+      {% endfor %}
+  <tr>
+      <th colspan="7" align="center">Total Salary Amount</th>
+      <td>{{ t }}</td>
+  </tr>
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

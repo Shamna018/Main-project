@@ -1,0 +1,144 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+<body>
+<h2 align="center" style="">Add Basic pay</h2><br>
+<form id="form1" name="form1" method="post" action="/myapp/basicpay_post/">
+    {% csrf_token %}
+  <table  style="border: double cadetblue" class="table table-borderless table-hover table-striped">
+    <tr>
+      <th width="173">Department</th>
+      <td width="173"><select name="select2" id="select2" class="form-control">
+      <option>Select</option>
+          {% for i in data %}
+          <option value="{{ i.id }}">{{ i.department_name }}</option>
+          {% endfor %}
+      </select></td>
+    </tr>
+    <tr>
+      <th>Designation</th>
+      <td><select name="select" id="select" class="form-control">
+          {% for i in data2 %}
+          <option value="{{ i.id }}">{{ i.designation_name }}</option>
+          {% endfor %}
+      </select></td>
+    </tr>
+    <tr>
+      <th>Basic pay</th>
+      <td><input type="number" name="textfield" id="textfield" required class="form-control"/></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><input type="submit" name="button" id="button" class="btn btn-outline-warning" value="Submit" />
+       <h6 id="h6" name="h6" style="...">
+          </h6>
+      </td>
+    </tr>
+  </table>
+
+</form>
+</body>
+</html>
+
+
+
+      <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+<script  type="text/javascript" >
+
+
+  $(document).on('change','#select2',function () {
+
+      var did = $('#select2').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/getdesignationdep/",
+          type: "POST",
+          data: {
+
+              'did': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#select").empty();
+              var d = dat['data'];
+               $("#select").append("<option value='' >Choose Option</option>")
+              for(var i=0;i<=d.length;i++)
+                {
+                    $("#select").append("<option value='"+d[i]['id']+"' >"+d[i]['designation_name']+"</option>")
+                }
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+
+     $(document).ready(function () {
+
+         $("#button").prop('disabled', true);
+
+
+        $(document).on('change','#select',function () {
+
+
+            var cc=$("#select").val();
+
+
+            $.getJSON("/myapp/checkbasicpay/",{
+                 c:cc
+
+
+                },function (data) {
+
+
+                 if(data["status"]=="ok"){
+
+                    $("#button").prop('disabled', false);
+                      $("#h6").text("");
+
+
+                }else {
+                     $("#button").prop('disabled', true);
+                      $("#h6").text("Already exists");
+
+                }
+                });
+
+        });
+ });
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,271 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+    <style>
+        .btn {
+ width: 6.5em;
+ height: 2.3em;
+ margin: 0.5em;
+ background: grey;
+ color: white;
+ border: none;
+ border-radius: 0.625em;
+ font-size: 20px;
+ font-weight: bold;
+ cursor: pointer;
+ position: relative;
+ z-index: 1;
+ overflow: hidden;
+}
+
+button:hover {
+ color: black;
+}
+
+button:after {
+ content: "";
+ background: white;
+ position: absolute;
+ z-index: -1;
+ left: -20%;
+ right: -20%;
+ top: 0;
+ bottom: 0;
+ transform: skewX(-45deg) scale(0, 1);
+ transition: all 0.5s;
+}
+
+button:hover:after {
+ transform: skewX(-45deg) scale(1, 1);
+ -webkit-transition: all 0.5s;
+ transition: all 0.5s;
+}
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+
+</head>
+<body>
+<h2 align="center">Staff Registration</h2><br>
+<form action="/myapp/registration_post/" method="post" enctype="multipart/form-data" name="form1" id="form1">{% csrf_token %}
+  <table border="1" class="table table-borderless table-hover table-striped">
+    <tr>
+      <th width="164">Name <label style="color: red;"> *</label></th>
+      <td width="574"><input type="text" name="textfield" id="textfield"  class="form-control" autocomplete="off" required pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <th>Gender <label style="color: red;"> *</label></th>
+      <td><input type="radio" name="radio" id="radio" value="Male" checked/>
+        Male
+        <input type="radio" name="radio" id="radio2" value="Female" />
+        Female</td>
+    </tr>
+    <tr>
+      <th>Date of birth <label style="color: red;"> *</label></th>
+      <td><input type="date" name="textfield12" id="textfield12" class="form-control" required min="1980-12-31" max="2003-12-31"/></td>
+    </tr>
+    <tr>
+      <th>Mobile No <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield2" id="textfield2" autocomplete="off" class="form-control" pattern="[6789][0-9]{9}" title="Mobile no: must be 10 digit number and should start with [6,7,8,9]" required/></td>
+    </tr>
+    <tr>
+      <th>Email <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield3" id="textfield3" class="form-control" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/></td>
+    </tr>
+    <tr>
+      <th>Address <label style="color: red;"> *</label></th>
+      <td><textarea name="textarea" id="textarea" cols="45" rows="5" autocomplete="off" class="form-control" required></textarea></td>
+    </tr>
+    <tr>
+      <th>Qualification <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield4" id="textfield4" class="form-control" required/></td>
+    </tr>
+    <tr>
+      <th>Experience</th>
+      <td><input type="number" name="textfield5" id="textfield5"  autocomplete="off" class="form-control"/></td>
+    </tr>
+    <tr>
+      <th>Father's name <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield6" id="textfield6" class="form-control" required pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <th>Mother's name <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield7" id="textfield7" class="form-control" required pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <th>Department <label style="color: red;"> *</label></th>
+      <td><select name="select" id="select" class="form-control" required>
+            <option>Choose An Option</option>
+          {% for i in data2 %}
+              <option value="{{ i.id }}" >{{ i.department_name }}</option>
+          {% endfor %}
+
+      </select></td>
+    </tr>
+    <tr>
+      <th>Designation <label style="color: red;"> *</label></th>
+      <td><select name="select2" id="select2" class="form-control" required>
+
+       {% for i in data3 %}
+            <option value="{{ i.id }}">{{ i.designation_name }}</option>
+          {% endfor %}
+
+
+      </select></td>
+    </tr>
+    <tr>
+      <th>Basic salary</th>
+      <td><input type="text" name="textfield11" readonly id="textfield11" class="form-control"/></td>
+    </tr>
+{#    <tr>#}
+{#      <td>Join Date <label style="color: red;"> *</label></td>#}
+{#      <td><input type="date" name="textfield13" id="textfield13" class="form-control" required/></td>#}
+{#    </tr>#}
+    <tr>
+      <th>Accno <label style="color: red;"> *</label></th>
+      <th><input type="number" name="textfield8" id="textfield8" class="form-control" required pattern="{11}" placeholder="  Eg:- 45678934251"/></th>
+    </tr>
+    <tr>
+      <th>IFSC <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield9" id="textfield9" class="form-control" pattern="{11}" placeholder=" Eg:- SBIN0089765" required/></td>
+    </tr>
+    <tr>
+      <th>Recipient name <label style="color: red;"> *</label></th>
+      <td><input type="text" name="textfield10" id="textfield10" class="form-control" pattern="[A-Z/ /a-z]{3,25}" required/></td>
+    </tr>
+    
+    <tr>
+      <th>Photo <label style="color: red;"> *</label></th>
+      <td><input type="file" name="fileField" id="fileField" class="form-control" required/></td>
+    </tr>
+  </table>
+    <table class="table table-borderless table-hover" align="center">
+    <tr>
+{#      <td align="center"><input type="submit" name="button" id="button" value="Create Face model" /></td>#}
+      <td align="center">
+          <button class="btn"> Register</button>
+{#          <input type="submit" name="button2" id="button2" value="Register" class="btn"/>#}
+      </td>
+      <td colspan="2" align="center">
+          <button class="btn" type="reset"> Cancel
+</button>
+
+{#          <input type="reset" name="button3" id="button3" value="Cancel" />#}
+      </td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>
+
+
+      <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+<script  type="text/javascript" >
+
+
+  $(document).on('change','#select',function () {
+
+      var did = $('#select').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/getdesignationdep/",
+          type: "POST",
+          data: {
+
+              'did': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#select2").empty();
+              var d = dat['data'];
+
+               $("#select2").append("<option value='' ></option>")
+              for(var i=0;i<=d.length;i++)
+                {
+                    $("#select2").append("<option value='"+d[i]['id']+"' >"+d[i]['designation_name']+"</option>")
+                }
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+
+
+
+
+
+  $(document).on('change','#select2',function () {
+
+      var did = $('#select2').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/basicsallaryget/",
+          type: "POST",
+          data: {
+
+              'desid': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#textfield11").empty();
+              var d = dat['data'];
+
+                $("#textfield11").val(d);
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+
+
+
+
+</script>
+
+
+
+
+
+
+{% endblock %}

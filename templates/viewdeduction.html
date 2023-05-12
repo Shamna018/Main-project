@@ -1,0 +1,45 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+<body>
+<h2 align="center" style="">View Deduction</h2><br>
+<form id="form1" name="form1" method="post" action="">
+  <table border="1" class="table table-bordered table-hover table-striped">
+    <tr style="background-color: grey">
+      <th width="31">Sl no</th>
+      <th width="139">Deduction type</th>
+      <th width="89">Salary limit</th>
+      <th width="138">Percentage</th>
+      <th width="196">Amount</th>
+      <td width="196"></td>
+    </tr>
+      {% for i in data %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ i.deduction_type }}</td>
+      <td>{{ i.salary_limit}}</td>
+      <td>{{ i.percentage}}</td>
+      <td>{% widthratio i.percentage 100 i.salary_limit %}</td>
+      <td align="center"><a href="/myapp/update_deduction/{{ i.id }}#about">Edit</a></td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

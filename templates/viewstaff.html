@@ -1,0 +1,65 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+</head>
+
+<body>
+<h2 align="center">View Staffs</h2><br>
+
+  <table id="tableid"  class="table table-borderless table-hover table-striped">
+  <thead>
+    <tr style="background-color: grey">
+      <th>Sl No</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Designation</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+        <th></th>
+        <th></th>
+      
+    </tr>
+    </thead>
+  <tbody>
+      {% for i in data %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ i.name }}</td>
+      <td>{{ i.DESIGNATION.DEPARTMENT.department_name }}</td>
+      <td>{{ i.DESIGNATION.designation_name }}&nbsp;</td>
+      <td><a href="/myapp/updatestaff/{{ i.id }}#about">Edit</a> </td>
+      <td><a href="/myapp/viewmorestaff/{{ i.id }}#about">View More</a> </td>
+        <td><a href="/myapp/viewstaffattendance/{{ i.id }}#about">View Attendance</a> </td>
+        <td><a href="/myapp/view_salary/{{ i.id }}#about">View Salary</a> </td>
+{#    <td><a href="/myapp/delete_staff/{{ i.id }}#about">Terminate</a></td>#}
+    </tr>
+      {% endfor %}
+  </tbody>
+  </table>
+
+<script>
+  $(document).ready( function () { $('#tableid').DataTable(); } );
+  /*function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+  }*/
+  </script>
+</body>
+</html>
+{% endblock %}

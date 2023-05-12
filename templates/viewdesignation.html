@@ -1,0 +1,43 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+<body>
+<h2 align="center">View Designation</h2><br>
+<form id="form1" name="form1" method="post" action="">
+  <table border="1" class="table table-bordered table-hover table-striped">
+    <tr style="background-color: grey">
+      <th width="138">Sl no</th>
+      <th width="170">Department name</th>
+      <th width="158">Designation name</th>
+      <td width="74">&nbsp;</td>
+      <td width="99">&nbsp;</td>
+    </tr>
+      {% for i in data %}
+    <tr>
+      <td>&nbsp;{{ forloop.counter }}</td>
+      <td>{{ i.DEPARTMENT.department_name }}</td>
+      <td>{{ i.designation_name }}</td>
+      <td align="center"><a href="/myapp/update_designation/{{ i.id }}#about">Edit</a></td>
+      <td align="center"><a href="/myapp/delete_designation/{{ i.id }}">Delete</a></td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends "admin_index.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <style>
+         h2 {
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+    </style>
+</head>
+
+<body>
+<h2 align="center">Add Allowances</h2><br>
+<form id="form1" name="form1" method="post" action="/myapp/allowance_post/">
+    {% csrf_token %}
+  <table width="659" border="1" class="table table-borderless table-hover table-striped">
+    <tr>
+      <td>Department</td>
+      <td><select name="select" id="select" class="form-control" required>
+          <option>Select</option>
+              {% for i in data %}
+                  <option value="{{ i.id }}">{{ i.department_name }}</option>
+              {% endfor %}
+          </select></td>
+    </tr>
+    <tr>
+      <td>Designation</td>
+      <td>
+          <select name="select2" id="select2" class="form-control" required>
+      <option>Select</option>
+          {% for i in data2 %}
+          <option value="{{ i.id }}">{{ i.designation_name }}</option>
+          {% endfor %}
+
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Staff </td>
+      <td>
+          <select name="select1" id="select3" class="form-control" required>
+      <option>Select</option>
+          {% for i in data1 %}
+              <option value="{{ i.id }}">{{ i.name }}</option>
+          {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Allowance type</td>
+      <td><input type="text" name="textfield" id="textfield" class="form-control" required pattern="[A-Z/ /a-z]{3,25}"/></td>
+    </tr>
+    <tr>
+      <td>Amount</td>
+      <td><input type="number" name="textfield2" id="textfield2" class="form-control"required/></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><input type="submit" name="button" id="button" class="btn btn-outline-warning" value="Submit" /> <h6 id="h6" name="h6" style="..."></h6></td>
+
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+<script  type="text/javascript" >
+
+
+  $(document).on('change','#select',function () {
+
+      var did = $('#select').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/getdesignationdepart/",
+          type: "POST",
+          data: {
+
+              'did': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#select2").empty();
+              var d = dat['data'];
+               $("#select2").append("<option value='' >Select</option>")
+              for(var i=0;i<=d.length;i++)
+                {
+                    $("#select2").append("<option value='"+d[i]['id']+"' >"+d[i]['designation_name']+"</option>")
+                }
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+  $(document).on('change','#select2',function () {
+
+      var did = $('#select2').find(":selected").val();
+      {#      var sem = $('#semester').find(":selected").val();#}
+
+
+      $.ajax({
+          url: "/myapp/getdesignationstaff/",
+          type: "POST",
+          data: {
+
+              'did': did
+
+
+          },
+          dataType: "json",
+          success: function (dat) {
+
+              $("#select3").empty();
+              var d = dat['data'];
+               $("#select3").append("<option value='' >Choose an Option</option>")
+              for(var i=0;i<=d.length;i++)
+                {
+                    $("#select3").append("<option value='"+d[i]['id']+"' >"+d[i]['name']+"</option>")
+                }
+
+          },
+          error: function (ts) {
+
+              alert('no');
+
+          },
+          complete: function (ts) {
+
+          }
+      });
+
+
+  });
+
+
+{#  validation for allowances type#}
+
+    $(document).ready(function () {
+
+         $("#button").prop('disabled', true);
+
+
+        $(document).on('keyup','#textfield',function () {
+
+
+            var allo=$("#textfield").val();
+            var sid=$("#select3").val();
+
+
+            $.getJSON("/myapp/admincheckallowance/",{
+                 c:allo,
+                 s:sid
+
+
+                },function (data) {
+
+
+                 if(data["status"]=="ok"){
+
+                    $("#button").prop('disabled', false);
+                      $("#h6").text("");
+
+
+                }else {
+                     $("#button").prop('disabled', true);
+                      $("#h6").text("Already exists");
+
+                }
+                });
+
+        });
+ });
+
+
+</script>
+
+{% endblock %}
