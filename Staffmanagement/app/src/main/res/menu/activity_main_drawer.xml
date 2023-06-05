@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/attendance"
+            android:icon="@drawable/attendance"
+            android:title="Attendance" />
+        <item
+            android:id="@+id/assignedwork"
+            android:icon="@drawable/work"
+            android:title="Assigned Work" />
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/notification"
+            android:title="Notification" />
+        <item
+            android:id="@+id/leave_request"
+            android:icon="@drawable/viewleave"
+            android:title="Leave Request" />
+        <item
+            android:id="@+id/resign"
+            android:icon="@drawable/resign"
+            android:title="Resignation" />
+        <item
+            android:id="@+id/salary"
+            android:icon="@drawable/salary"
+            android:title="Salary" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+
+
+
+    </group>
+</menu>

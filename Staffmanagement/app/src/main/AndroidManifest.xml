@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:allowClearUserData="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.StaffManagement"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".viewsalary"
+            android:exported="false" />
+        <activity
+            android:name=".view_resignation_status"
+            android:exported="false" />
+        <activity
+            android:name=".applyresignation"
+            android:exported="false" />
+        <activity
+            android:name=".view_leave_request"
+            android:exported="false" />
+        <activity
+            android:name=".leave_request"
+            android:exported="false" />
+        <activity
+            android:name=".view_attendance"
+            android:exported="false" />
+        <activity
+            android:name=".staffhome"
+            android:exported="false"
+            android:label="@string/title_activity_staffhome"
+            android:theme="@style/Theme.StaffManagement.NoActionBar" />
+        <activity
+            android:name=".View_notification"
+            android:exported="false" />
+        <activity
+            android:name=".Notification"
+            android:exported="false" />
+        <activity
+            android:name=".View_assign_work"
+            android:exported="false" />
+        <activity
+            android:name=".ViewProfile"
+            android:exported="false" />
+        <activity
+            android:name=".login"
+            android:exported="false"
+            android:theme="@style/Theme.StaffManagement.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="true" />
+    </application>
+
+</manifest>
